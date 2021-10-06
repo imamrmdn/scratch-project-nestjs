@@ -17,7 +17,7 @@ export class AppController {
     arr: Username[]
 
     @Get('/name/:nama')
-    async getByName(@Param('nama') nama: string){
+    getByName(@Param('nama') nama: string): object{
 
         //
         this.text = 'hello world'
@@ -36,12 +36,24 @@ export class AppController {
 
     }
 
-    @Get(`/filter`)
-    getByFilter(){
+    @Get('/filter')
+    getByFilter(): string{
 
         const filter: string = 'Hi Filter'
 
         return filter
+    }
+
+    @Get('/number')
+    async getByNumber(){
+
+        let data: number[] = []
+
+        for(let i = 1; i < 100000; i++){
+            data.push(i)
+        }
+
+        return await data
     }
 
 }
