@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 type Username = {
     name: string,
@@ -9,15 +9,15 @@ type Username = {
  * Controller = handles incoming request
  */
 
-@Controller() //decorators
+@Controller('/api') //decorators
 export class AppController {
 
     text: string
     num: number
     arr: Username[]
 
-    @Get()
-    getRootRoute(){
+    @Get('/name/:nama')
+    async getByName(@Param('nama') nama: string){
 
         //
         this.text = 'hello world'
@@ -28,16 +28,20 @@ export class AppController {
         const title: string = 'hi there'
         const data: string[] = this.arr.map(item => item.name + item.age)
 
-        //
-        const response: object = { 
-            text: this.text,
-            num: this.num,
-            title,
-            data
-        }
+        let response: object;
+ 
+        (nama === 'imam') ? response = { data } : response = { title }
 
         return response
 
+    }
+
+    @Get(`/filter`)
+    getByFilter(){
+
+        const filter: string = 'Hi Filter'
+
+        return filter
     }
 
 }
